@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Apr 12 17:39:14 2022
+
+@author: Windows
+"""
+from multipledispatch import dispatch
+
+class Medida:
+    
+    def __init__(self, valor, incerteza):
+        self.valor = valor
+        self.incerteza = incerteza
+        
+    def __str__(self):
+        return f"Medida({self.valor},{self.incerteza})" 
+    
+    def __repr__(self):
+        return f"Medida({self.valor},{self.incerteza})"
+        
+    def __add__(self,other):
+        
+        novo_valor = self.valor + other.valor
+        novo_incerteza = self.incerteza + other.incerteza
+        
+        return Medida(novo_valor, novo_incerteza)
+    
+    def __sub__(self,other):
+        
+        novo_valor = self.valor - other.valor
+        novo_incerteza = self.incerteza + other.incerteza
+        
+        return Medida(novo_valor, novo_incerteza)
+    
+    def 
+
+
+    @dispatch(int)
+    def __mul__(self, other):
+              
+        novo_valor = self.valor * other
+        novo_incerteza = self.incerteza * other
+        
+        return Medida(novo_valor, novo_incerteza)
+    
+    
+    def __mul__(self, other):
+                  
+        novo_valor = self.valor * other.valor
+        novo_incerteza = (self.incerteza * other.valor) + (other.incerteza * self.valor)
+            
+        return Medida(novo_valor, novo_incerteza)
+    
+    def __truediv__(self,other):
+        
+        novo_valor = self.valor * other.valor
+        novo_incerteza = ((self.incerteza*other.valor) - (other.incerteza+self.valor))/(self.valor)**2
+        
+        return Medida(novo_valor, novo_incerteza)
+    
+    def __pow__(self,exp):
+        novo_valor = (self.valor) ** exp
+        novo_incerteza = (self.incerteza) * exp
+        
+        return Medida(novo_valor, novo_incerteza)
+    
